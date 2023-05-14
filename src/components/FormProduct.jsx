@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import BaseButton from "./BaseButton";
 import BaseAlert from "./BaseAlert";
 import BaseInput from "./BaseInput";
 import axios from "../config.axios";
 
 export default function FormProduct(props) {
+  const productSelected = props.product_selected;
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
@@ -13,9 +14,8 @@ export default function FormProduct(props) {
     product_code: "",
     product_name: "",
     price: "",
-    discount: "",
+    discount: null,
     dimension: "",
-    stock: 0,
   });
   const urllogin = "/api/v1/product/store";
 
@@ -39,9 +39,8 @@ export default function FormProduct(props) {
       });
       if (response.data.status == "error") {
         showErrorMessage(response.data.message);
-      }else
-      if(response.data.status == 'success') {
-        props.onSuccessSubmit(true)
+      } else if (response.data.status == "success") {
+        props.onSuccessSubmit(true);
       }
       setIsLoading(false);
     } catch (error) {
@@ -65,6 +64,39 @@ export default function FormProduct(props) {
     setErrorMsg("");
   }
 
+  function resetFormValue() {
+    if (Object.keys(productSelected).length == 0) {
+      setInputValues({
+        id: "",
+        product_code: "",
+        product_name: "",
+        price: "",
+        discount: null,
+        dimension: "",
+      });
+    }
+  }
+
+  function setValuesFromProductSelected() {
+    if (Object.keys(productSelected).length > 0) {
+      setInputValues({
+        id: productSelected.id,
+        product_code: productSelected.product_code,
+        product_name: productSelected.product_name,
+        price: productSelected.price,
+        discount: productSelected.discount,
+        dimension: productSelected.dimension,
+      });
+
+      console.log(productSelected);
+    }
+  }
+
+  useEffect(() => {
+    resetFormValue();
+    setValuesFromProductSelected();
+  }, []);
+
   return (
     <>
       <div>
@@ -75,6 +107,7 @@ export default function FormProduct(props) {
             <BaseInput
               type="text"
               name="product_code"
+              value={productSelected.product_code}
               onChange={(event) => handleInputChange(event)}
             />
           </div>
@@ -83,6 +116,7 @@ export default function FormProduct(props) {
             <BaseInput
               type="text"
               name="product_name"
+              value={productSelected.product_name}
               onChange={(event) => handleInputChange(event)}
             />
           </div>
@@ -91,6 +125,7 @@ export default function FormProduct(props) {
             <BaseInput
               type="number"
               name="price"
+              value={productSelected.price}
               onChange={(event) => handleInputChange(event)}
             />
           </div>
@@ -99,6 +134,7 @@ export default function FormProduct(props) {
             <BaseInput
               type="number"
               name="discount"
+              value={productSelected.discount}
               onChange={(event) => handleInputChange(event)}
             />
           </div>
@@ -107,14 +143,7 @@ export default function FormProduct(props) {
             <BaseInput
               type="text"
               name="dimension"
-              onChange={(event) => handleInputChange(event)}
-            />
-          </div>
-          <div className="my-4">
-            <label className="block">Stock</label>
-            <BaseInput
-              type="number"
-              name="stock"
+              value={productSelected.dimension}
               onChange={(event) => handleInputChange(event)}
             />
           </div>

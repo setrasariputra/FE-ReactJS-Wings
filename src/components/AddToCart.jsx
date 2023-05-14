@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import BaseButton from "./BaseButton";
 import Skeleton from "./Skeleton";
 import BaseDialog from "./BaseDialog";
+import ProductDetail from "./ProductDetail";
 import axios from "../config.axios";
 
 export default function AddToCart(props) {
@@ -115,6 +116,13 @@ export default function AddToCart(props) {
     props.onProductCartCheckout(productCart)
   }
 
+  function handleReloadProduct(values) {
+    if(values == true) {
+        handleOnCloseDialog(values);
+        getProducts();
+    }
+  }
+
   useEffect(() => {
     getProducts();
   }, []);
@@ -126,7 +134,7 @@ export default function AddToCart(props) {
           <table className={styleTable}>
             <thead>
               <tr className={styleTR}>
-                <th className={styleTH}>Image</th>
+                <th className={styleTH} width="100px">Image</th>
                 <th className={styleTH}>Price</th>
                 <th className={styleTH}>Buy</th>
               </tr>
@@ -134,7 +142,11 @@ export default function AddToCart(props) {
             <tbody>
               {products.map((row, index) => (
                 <tr className={styleTR} key={row.id}>
-                  <td className={styleTD}>image</td>
+                  <td className={styleTD}>
+                  <div className="w-20 h-20 p-2 border border-slate-200 rounded cursor-pointer hover:drop-shadow-lg hover:border-indigo-300" onClick={() => handleProductDetail(row)}>
+                  {row.image === null ? "" : (<img src={row.image.image_url} />)}
+                  </div>
+                  </td>
                   <td className={styleTD}>
                     <b>
                       <a
@@ -180,30 +192,7 @@ export default function AddToCart(props) {
 
       {isShowDialog == true ? (
         <BaseDialog title="Product Detail" onCloseDialog={handleOnCloseDialog}>
-          <div className="flex">
-            <div className="flex-none w-1/2 pr-6">
-              <div className="w-28 h-28 m-auto bg-indigo-500 rounded"></div>
-            </div>
-            <div className="flex-initial w-1/2 text-left pl-6 text-slate-600">
-              <h2 className="text-lg mb-4">
-                <b>{isProductSelected.product_name}</b>
-              </h2>
-              <div>
-                {isProductSelected.discount !== null ? (
-                  <div>
-                    <s className="text-red-400">
-                      {isProductSelected.display_price}
-                    </s>
-                  </div>
-                ) : null}
-                {isProductSelected.display_sales_price}
-              </div>
-              <div className="my-4">
-                Dimension: {isProductSelected.dimension}
-              </div>
-              <div className="my-4">Unit: {isProductSelected.unit}</div>
-            </div>
-          </div>
+          <ProductDetail product_selected={isProductSelected} onReloadProduct={handleReloadProduct} />
         </BaseDialog>
       ) : null}
     </>
