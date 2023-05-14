@@ -3,7 +3,7 @@ import React from "react";
 export default function BaseButton(props) {
   let style = "px-6 py-2 rounded";
   let disabled = false;
-  if(props.disabled == true) {
+  if (props.disabled == true) {
     disabled = true;
   }
   let labelButton = props.label;
@@ -25,10 +25,16 @@ export default function BaseButton(props) {
       if (disabled == false) {
         style +=
           " bg-indigo-500 hover:bg-indigo-600 active:bg-indigo-500 text-white";
-      }else
-      if(disabled == true) {
+      } else if (disabled == true) {
+        style += " bg-indigo-500 text-white";
+      }
+      break;
+    case "red":
+      if (disabled == false) {
         style +=
-          " bg-indigo-500 text-white";
+          " bg-red-500 hover:bg-red-600 active:bg-red-500 text-white";
+      } else if (disabled == true) {
+        style += " bg-red-500 text-white";
       }
       break;
     case "plain":

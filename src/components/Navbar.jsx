@@ -14,14 +14,14 @@ export default function Navbar() {
           </Link>
         </li>
         <li className={styleList}>
-          <a className={styleLink} href="#">
+          <Link className={styleLink} to="/products">
             Products
-          </a>
+          </Link>
         </li>
         <li className={styleList}>
-          <a className={styleLink} href="#">
+          <Link className={styleLink} to="/report">
             Report
-          </a>
+          </Link>
         </li>
         <li className={styleList}>
           <Link className={styleLink} to="/logout">

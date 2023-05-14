@@ -5,6 +5,8 @@ import ErrorPage from './error-page'
 import Login from './Login'
 import Logout from './Logout'
 import Dashboard from './Dashboard'
+import Report from './Report'
+import Products from './Products'
 import './index.css'
 
 const router = createBrowserRouter([
@@ -31,6 +33,16 @@ const router = createBrowserRouter([
   {
     path: "/dashboard",
     element: <Dashboard />,
+    errorElement: <ErrorPage />
+  },
+  {
+    path: "/products",
+    element: <Products />,
+    errorElement: <ErrorPage />
+  },
+  {
+    path: "/report",
+    element: <Report />,
     errorElement: <ErrorPage />
   }
 ]);
