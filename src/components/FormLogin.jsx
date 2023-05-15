@@ -76,6 +76,7 @@ export default function FormLogin() {
                 <BaseInput
                   type="text"
                   name="user"
+                  maxlength="30"
                   required={true}
                   onChange={handleInputChange}
                 />
@@ -85,6 +86,7 @@ export default function FormLogin() {
                 <BaseInput
                   type="password"
                   name="password"
+                  maxlength="255"
                   required={true}
                   onChange={handleInputChange}
                 />

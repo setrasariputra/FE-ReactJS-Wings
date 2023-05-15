@@ -118,6 +118,8 @@ export default function FormProduct(props) {
               type="text"
               name="product_code"
               value={inputValues.product_code}
+              maxlength="18"
+              required={true}
               onChange={(event) => handleInputChange(event)}
             />
           </div>
@@ -127,6 +129,8 @@ export default function FormProduct(props) {
               type="text"
               name="product_name"
               value={inputValues.product_name}
+              maxlength="30"
+              required={true}
               onChange={(event) => handleInputChange(event)}
             />
           </div>
@@ -136,6 +140,8 @@ export default function FormProduct(props) {
               type="number"
               name="price"
               value={inputValues.price}
+              maxlength="255"
+              required={true}
               onChange={(event) => handleInputChange(event)}
             />
           </div>
@@ -145,6 +151,7 @@ export default function FormProduct(props) {
               type="number"
               name="discount"
               value={inputValues.discount}
+              maxlength="255"
               onChange={(event) => handleInputChange(event)}
             />
           </div>
@@ -154,6 +161,8 @@ export default function FormProduct(props) {
               type="text"
               name="dimension"
               value={inputValues.dimension}
+              maxlength="50"
+              required={true}
               onChange={(event) => handleInputChange(event)}
             />
           </div>
