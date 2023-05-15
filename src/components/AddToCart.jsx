@@ -113,13 +113,13 @@ export default function AddToCart(props) {
   }
 
   function handleCheckout() {
-    props.onProductCartCheckout(productCart)
+    props.onProductCartCheckout(productCart);
   }
 
   function handleReloadProduct(values) {
-    if(values == true) {
-        handleOnCloseDialog(values);
-        getProducts();
+    if (values == true) {
+      handleOnCloseDialog(values);
+      getProducts();
     }
   }
 
@@ -131,51 +131,62 @@ export default function AddToCart(props) {
     <>
       {isShowProductTable == false ? null : (
         <div>
-          <table className={styleTable}>
-            <thead>
-              <tr className={styleTR}>
-                <th className={styleTH} width="100px">Image</th>
-                <th className={styleTH}>Price</th>
-                <th className={styleTH}>Buy</th>
-              </tr>
-            </thead>
-            <tbody>
-              {products.map((row, index) => (
-                <tr className={styleTR} key={row.id}>
-                  <td className={styleTD}>
-                  <div className="w-20 h-20 p-2 border border-slate-200 rounded cursor-pointer hover:drop-shadow-lg hover:border-indigo-300" onClick={() => handleProductDetail(row)}>
-                  {row.image === null ? "" : (<img src={row.image.image_url} />)}
-                  </div>
-                  </td>
-                  <td className={styleTD}>
-                    <b>
-                      <a
-                        href="#"
-                        className="text-sky-400 hover:text-sky-500"
+          <div className="atc-product-height overflow-y-scroll">
+            <table className={styleTable}>
+              <thead>
+                <tr className={styleTR}>
+                  <th className={styleTH} width="100px">
+                    Image
+                  </th>
+                  <th className={styleTH}>Price</th>
+                  <th className={styleTH}>Buy</th>
+                </tr>
+              </thead>
+              <tbody>
+                {products.map((row, index) => (
+                  <tr className={styleTR} key={row.id}>
+                    <td className={styleTD}>
+                      <div
+                        className="w-20 h-20 p-2 border border-slate-200 rounded cursor-pointer hover:drop-shadow-lg hover:border-indigo-300"
                         onClick={() => handleProductDetail(row)}
                       >
-                        {row.product_name}
-                      </a>
-                    </b>
-                    <br />
-                    {row.discount !== null ? (
-                      <div>
-                        <s className="text-red-400">{row.display_price}</s>
-                        <br />
+                        {row.image === null ? (
+                          ""
+                        ) : (
+                          <img src={row.image.image_url} />
+                        )}
                       </div>
-                    ) : null}
-                    {row.display_sales_price}
-                  </td>
-                  <td className={styleTD}>
-                    <input
-                      type="checkbox"
-                      onClick={() => handleBuy(index, row)}
-                    />
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+                    </td>
+                    <td className={styleTD}>
+                      <b>
+                        <a
+                          href="#"
+                          className="text-sky-400 hover:text-sky-500"
+                          onClick={() => handleProductDetail(row)}
+                        >
+                          {row.product_name}
+                        </a>
+                      </b>
+                      <br />
+                      {row.discount !== null ? (
+                        <div>
+                          <s className="text-red-400">{row.display_price}</s>
+                          <br />
+                        </div>
+                      ) : null}
+                      {row.display_sales_price}
+                    </td>
+                    <td className={styleTD}>
+                      <input
+                        type="checkbox"
+                        onClick={() => handleBuy(index, row)}
+                      />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
           <div className="my-6 text-center">
             <span onClick={handleCheckout}>
               <BaseButton
@@ -192,7 +203,10 @@ export default function AddToCart(props) {
 
       {isShowDialog == true ? (
         <BaseDialog title="Product Detail" onCloseDialog={handleOnCloseDialog}>
-          <ProductDetail product_selected={isProductSelected} onReloadProduct={handleReloadProduct} />
+          <ProductDetail
+            product_selected={isProductSelected}
+            onReloadProduct={handleReloadProduct}
+          />
         </BaseDialog>
       ) : null}
     </>

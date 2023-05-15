@@ -87,7 +87,7 @@ export default function Transaction() {
 
   return (
     <>
-      <div className="transaction-height max-w-lg py-10 px-4 m-auto overflow-y-scroll border border-inherit rounded-md">
+      <div className="transaction-height max-w-lg py-10 px-4 m-auto border border-inherit rounded-md">
         <h1 className="text-center text-3xl my-4 text-slate-600">{title()}</h1>
 
         <div className="flex gap-2 my-6 text-sm text-slate-600">

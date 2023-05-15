@@ -98,50 +98,62 @@ export default function ConfirmCheckout(props) {
         </span>
       </div>
       <div>
-        <table className={styleTable}>
-          <thead>
-            <tr className={styleTR}>
-              <th className={styleTH}>Image</th>
-              <th className={styleTH}>Cart</th>
-            </tr>
-          </thead>
-          <tbody>
-            {productCart.map((row, index) => (
-              <tr className={styleTR} key={row.id}>
-                <td className={styleTD}>Image</td>
-                <td className={styleTD}>
-                  <div>
-                    <b>{row.product_name}</b>
-                  </div>
-                  <div className="inline-block border border-slate-300 my-2">
-                    <ul>
-                      <li
-                        onClick={() =>
-                          handleUpdateQtyCartProduct("down", index, row.qty)
-                        }
-                        className="inline-block px-4 py-2 cursor-pointer hover:text-indigo-500"
-                      >
-                        -
-                      </li>
-                      <li className="inline-block px-4 py-2">{row.qty}</li>
-                      <li
-                        onClick={() =>
-                          handleUpdateQtyCartProduct("up", index, row.qty)
-                        }
-                        className="inline-block px-4 py-2 cursor-pointer hover:text-indigo-500"
-                      >
-                        +
-                      </li>
-                    </ul>
-                  </div>
-                  &nbsp;{row.unit}
-                  <div>Subtotal: {row.display_subtotal}</div>
-                </td>
+        <div className="h-80 overflow-y-scroll">
+          <table className={styleTable}>
+            <thead>
+              <tr className={styleTR}>
+                <th className={styleTH}>Image</th>
+                <th className={styleTH}>Cart</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-        <div className="text-center my-6 text-slate-600">
+            </thead>
+            <tbody>
+              {productCart.map((row, index) => (
+                <tr className={styleTR} key={row.id}>
+                  <td className={styleTD}>
+                  <div
+                        className="w-20 h-20 p-2 border border-slate-200 rounded cursor-pointer hover:drop-shadow-lg hover:border-indigo-300"
+                      >
+                        {row.image === null ? (
+                          ""
+                        ) : (
+                          <img src={row.image.image_url} />
+                        )}
+                      </div>
+                  </td>
+                  <td className={styleTD}>
+                    <div>
+                      <b>{row.product_name}</b>
+                    </div>
+                    <div className="inline-block border border-slate-300 my-2">
+                      <ul>
+                        <li
+                          onClick={() =>
+                            handleUpdateQtyCartProduct("down", index, row.qty)
+                          }
+                          className="inline-block px-4 py-2 cursor-pointer hover:text-indigo-500"
+                        >
+                          -
+                        </li>
+                        <li className="inline-block px-4 py-2">{row.qty}</li>
+                        <li
+                          onClick={() =>
+                            handleUpdateQtyCartProduct("up", index, row.qty)
+                          }
+                          className="inline-block px-4 py-2 cursor-pointer hover:text-indigo-500"
+                        >
+                          +
+                        </li>
+                      </ul>
+                    </div>
+                    &nbsp;{row.unit}
+                    <div>Subtotal: {row.display_subtotal}</div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <div className="text-center mt-10 text-slate-600">
           <h2 className="text-xl my-4">TOTAL: {displayTotal}</h2>
           <div>
             <span onClick={handleCheckoutConfirm}>

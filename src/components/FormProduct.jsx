@@ -14,10 +14,11 @@ export default function FormProduct(props) {
     product_code: "",
     product_name: "",
     price: "",
-    discount: null,
+    discount: "",
     dimension: "",
   });
-  const urllogin = "/api/v1/product/store";
+  const urlStore = "/api/v1/product/store";
+  const urlUpdate = "/api/v1/product/update";
 
   function handleInputChange(event) {
     const { name, value } = event.target;
@@ -29,9 +30,14 @@ export default function FormProduct(props) {
       event.preventDefault();
       setIsLoading(true);
 
+      let url = urlStore;
+      if(inputValues.id != "") {
+        url = urlUpdate
+      }
+
       const response = await axios({
         method: "post",
-        url: urllogin,
+        url: url,
         data: inputValues,
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token"),
@@ -71,7 +77,7 @@ export default function FormProduct(props) {
         product_code: "",
         product_name: "",
         price: "",
-        discount: null,
+        discount: "",
         dimension: "",
       });
     }
@@ -79,12 +85,16 @@ export default function FormProduct(props) {
 
   function setValuesFromProductSelected() {
     if (Object.keys(productSelected).length > 0) {
+      let discountValue = productSelected.discount;
+      if(productSelected.discount === null) {
+        discountValue = "";
+      }
       setInputValues({
         id: productSelected.id,
         product_code: productSelected.product_code,
         product_name: productSelected.product_name,
         price: productSelected.price,
-        discount: productSelected.discount,
+        discount: discountValue,
         dimension: productSelected.dimension,
       });
 
@@ -107,7 +117,7 @@ export default function FormProduct(props) {
             <BaseInput
               type="text"
               name="product_code"
-              value={productSelected.product_code}
+              value={inputValues.product_code}
               onChange={(event) => handleInputChange(event)}
             />
           </div>
@@ -116,7 +126,7 @@ export default function FormProduct(props) {
             <BaseInput
               type="text"
               name="product_name"
-              value={productSelected.product_name}
+              value={inputValues.product_name}
               onChange={(event) => handleInputChange(event)}
             />
           </div>
@@ -125,7 +135,7 @@ export default function FormProduct(props) {
             <BaseInput
               type="number"
               name="price"
-              value={productSelected.price}
+              value={inputValues.price}
               onChange={(event) => handleInputChange(event)}
             />
           </div>
@@ -134,7 +144,7 @@ export default function FormProduct(props) {
             <BaseInput
               type="number"
               name="discount"
-              value={productSelected.discount}
+              value={inputValues.discount}
               onChange={(event) => handleInputChange(event)}
             />
           </div>
@@ -143,7 +153,7 @@ export default function FormProduct(props) {
             <BaseInput
               type="text"
               name="dimension"
-              value={productSelected.dimension}
+              value={inputValues.dimension}
               onChange={(event) => handleInputChange(event)}
             />
           </div>

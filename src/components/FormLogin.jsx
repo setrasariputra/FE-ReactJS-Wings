@@ -76,7 +76,8 @@ export default function FormLogin() {
                 <BaseInput
                   type="text"
                   name="user"
-                  onChange={(event) => handleInputChange(event)}
+                  required={true}
+                  onChange={handleInputChange}
                 />
               </div>
               <div className="my-4">
@@ -84,7 +85,8 @@ export default function FormLogin() {
                 <BaseInput
                   type="password"
                   name="password"
-                  onChange={(event) => handleInputChange(event)}
+                  required={true}
+                  onChange={handleInputChange}
                 />
               </div>
               <div className="my-4">
